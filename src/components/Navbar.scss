@@ -1,0 +1,35 @@
+.search-bar-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+        justify-content: left;
+    }
+}
+
+.search-bar {
+    padding: 20px;
+    cursor: pointer;
+    width: 30%;
+
+    @media (max-width: 768px) {
+        width: 60%;
+    }
+
+    input {
+        border-color: grey;
+        border-width: 1px;
+        border-radius: 12px;
+        padding: 12px;
+        font-size: 20px;
+        width: 100%;
+        outline: none;
+    }
+}
+
+.logo img {
+    position: absolute;
+    right: 2%;
+    top: 20%;
+}
