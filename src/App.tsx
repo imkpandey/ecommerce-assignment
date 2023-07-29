@@ -41,7 +41,7 @@ const App: React.FC = () => {
                   </Link>
                 ))}
               </div>
-              <h1>Popular suggestions</h1>
+              <h2>Popular suggestions</h2>
               <div className="suggestion-box">
                 {suggestionData.map((suggestion, index) => (
                   <Link

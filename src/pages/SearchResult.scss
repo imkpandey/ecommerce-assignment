@@ -2,12 +2,20 @@
     position: relative;
     display: flex;
     justify-content: center;
+
+    @media (max-width: 768px) {
+        justify-content: left;
+    }
 }
 
 .search-bar {
     padding: 20px;
     cursor: pointer;
     width: 30%;
+
+    @media (max-width: 768px) {
+        width: 60%;
+    }
 
     input {
         border-color: grey;
@@ -34,6 +42,12 @@
     padding-left: 30px;
     max-width: 12%;
 
+    @media (max-width: 768px) {
+        display: flex;
+        padding-left: 10px;
+        max-width: 25%;
+    }
+
     .category-header {
         display: flex;
         justify-content: space-between;
@@ -59,6 +73,10 @@
             margin-left: 0px;
             border-top: 1px solid #D3D3D3;
             width: 200px;
+
+            @media (max-width: 768px) {
+                width: 150px;
+            }
         }
     }
 

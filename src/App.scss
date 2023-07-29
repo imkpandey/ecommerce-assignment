@@ -29,6 +29,10 @@
     cursor: pointer;
     width: 50%;
 
+    @media (max-width: 768px) {
+      width: 75%;
+    }
+
     input {
       font-size: 20px;
       border: none;
@@ -48,8 +52,18 @@
       margin-top: 10px;
       z-index: 1;
     }
-    
+
     h1 {
+      font-size: 20px;
+      font-weight: 500;
+      padding-left: 14px;
+
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    h2 {
       font-size: 20px;
       font-weight: 500;
       padding-left: 14px;
@@ -58,6 +72,11 @@
     .trend-box {
       display: flex;
       justify-content: space-between;
+
+      @media (max-width: 768px) {
+        display: none;
+      }
+
     }
 
     .trend-item {
