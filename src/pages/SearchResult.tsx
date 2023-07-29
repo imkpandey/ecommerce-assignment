@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
-import logo from "../assets/logo.png";
 import { ProductData, ProductType } from "../fakerData";
 import "./SearchResult.scss";
 import { VscStarFull, VscHeartFilled, VscHeart } from "react-icons/vsc";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import Navbar from "../components/Navbar";
 
 const SearchResult: React.FC = () => {
   const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [displayedProducts, setDisplayedProducts] = useState<ProductType[]>([]);
+  const [collapsedCategories, setCollapsedCategories] = useState<{
+    [category: string]: boolean;
+  }>({
+    BRAND: false,
+    PRICE: false,
+    RATING: false,
+  });
 
   useEffect(() => {
     const filteredProducts = ProductData.filter((product) => {
@@ -65,133 +72,165 @@ const SearchResult: React.FC = () => {
     });
   };
 
+  const handleCategoryToggle = (category: string) => {
+    setCollapsedCategories((prevCollapsedCategories) => ({
+      ...prevCollapsedCategories,
+      [category]: !prevCollapsedCategories[category],
+    }));
+  };
+
   return (
     <div className="search-page">
-      <div className="nav">
-        <div className="search-container">
-          <div className="search-bar">
-            <input type="text" placeholder="Search" />
-          </div>
-        </div>
-        <div className="logo">
-          <img src={logo} alt="logo" width={80} />
-        </div>
-      </div>
+      <Navbar />
       <div className="main">
         <div className="sidebar">
           <div className="filter-section">
             <h2>Search Results</h2>
             <div className="filter-category">
-              <div className="category-header">
+              <div
+                className="category-header"
+                onClick={() => handleCategoryToggle("BRAND")}
+              >
                 <h3>BRAND</h3>
-                <MdKeyboardArrowDown />
+                {collapsedCategories["BRAND"] ? (
+                  <MdKeyboardArrowDown />
+                ) : (
+                  <MdKeyboardArrowUp />
+                )}
               </div>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedBrand.includes("Mango")}
-                  onChange={() => handleBrandChange("Mango")}
-                />
-                Mango
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedBrand.includes("H&M")}
-                  onChange={() => handleBrandChange("H&M")}
-                />
-                H&M
-              </label>
+              {!collapsedCategories["BRAND"] && (
+                <>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedBrand.includes("Mango")}
+                      onChange={() => handleBrandChange("Mango")}
+                    />
+                    Mango
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedBrand.includes("H&M")}
+                      onChange={() => handleBrandChange("H&M")}
+                    />
+                    H&M
+                  </label>
+                </>
+              )}
               <hr />
             </div>
             <div className="filter-category">
-              <div className="category-header">
+              <div
+                className="category-header"
+                onClick={() => handleCategoryToggle("PRICE")}
+              >
                 <h3>PRICE</h3>
-                <MdKeyboardArrowDown />
+                {collapsedCategories["PRICE"] ? (
+                  <MdKeyboardArrowDown />
+                ) : (
+                  <MdKeyboardArrowUp />
+                )}
               </div>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedPrice.includes("Under 500")}
-                  onChange={() => handlePriceChange("Under 500")}
-                />
-                Under 500
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedPrice.includes("1000 To 3000")}
-                  onChange={() => handlePriceChange("1000 To 3000")}
-                />
-                1000 To 3000
-              </label>
+              {!collapsedCategories["PRICE"] && (
+                <>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedPrice.includes("Under 500")}
+                      onChange={() => handlePriceChange("Under 500")}
+                    />
+                    Under 500
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedPrice.includes("1000 To 3000")}
+                      onChange={() => handlePriceChange("1000 To 3000")}
+                    />
+                    1000 To 3000
+                  </label>
+                </>
+              )}
               <hr />
             </div>
             <div className="filter-category">
-              <div className="category-header">
+              <div
+                className="category-header"
+                onClick={() => handleCategoryToggle("RATING")}
+              >
                 <h3>RATING</h3>
-                <MdKeyboardArrowDown />
+                {collapsedCategories["RATING"] ? (
+                  <MdKeyboardArrowDown />
+                ) : (
+                  <MdKeyboardArrowUp />
+                )}
               </div>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedRating.includes(5)}
-                  onChange={() => handleRatingChange(5)}
-                />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#FFC107" />
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedRating.includes(4)}
-                  onChange={() => handleRatingChange(4)}
-                />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#D3D3D3" />
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedRating.includes(3)}
-                  onChange={() => handleRatingChange(3)}
-                />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#D3D3D3" />
-                <VscStarFull size={16} color="#D3D3D3" />
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedRating.includes(2)}
-                  onChange={() => handleRatingChange(2)}
-                />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#D3D3D3" />
-                <VscStarFull size={16} color="#D3D3D3" />
-                <VscStarFull size={16} color="#D3D3D3" />
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedRating.includes(1)}
-                  onChange={() => handleRatingChange(1)}
-                />
-                <VscStarFull size={16} color="#FFC107" />
-                <VscStarFull size={16} color="#D3D3D3" />
-                <VscStarFull size={16} color="#D3D3D3" />
-                <VscStarFull size={16} color="#D3D3D3" />
-                <VscStarFull size={16} color="#D3D3D3" />
-              </label>
+              {!collapsedCategories["RATING"] && (
+                <>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedRating.includes(5)}
+                      onChange={() => handleRatingChange(5)}
+                    />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#FFC107" />
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedRating.includes(4)}
+                      onChange={() => handleRatingChange(4)}
+                    />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#D3D3D3" />
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedRating.includes(3)}
+                      onChange={() => handleRatingChange(3)}
+                    />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#D3D3D3" />
+                    <VscStarFull size={16} color="#D3D3D3" />
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedRating.includes(2)}
+                      onChange={() => handleRatingChange(2)}
+                    />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#D3D3D3" />
+                    <VscStarFull size={16} color="#D3D3D3" />
+                    <VscStarFull size={16} color="#D3D3D3" />
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedRating.includes(1)}
+                      onChange={() => handleRatingChange(1)}
+                    />
+                    <VscStarFull size={16} color="#FFC107" />
+                    <VscStarFull size={16} color="#D3D3D3" />
+                    <VscStarFull size={16} color="#D3D3D3" />
+                    <VscStarFull size={16} color="#D3D3D3" />
+                    <VscStarFull size={16} color="#D3D3D3" />
+                  </label>
+                </>
+              )}
+              <hr />
             </div>
           </div>
         </div>
